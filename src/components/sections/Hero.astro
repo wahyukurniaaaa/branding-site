@@ -18,6 +18,7 @@ const { city, region, address } = location
       >
         <figure class='print:hidden'>
           <img
+            transition:name="profile-image"
             data-ccursor="lift"
             class='scale-110 sm:grayscale sm:scale-100 transition-all sm:group-hover:scale-110 sm:group-hover:grayscale-0'
             height={600}
@@ -83,6 +84,16 @@ const { city, region, address } = location
           <Icon name='ri:command-fill' class='flex-1 w-1/2'/>
           <p class="font-mono font-bold text-center">Open options</p>
         </div>
+
+        <a
+          href="/blog"
+          class="flex h-40 w-40 flex-col place-items-center rounded-3xl sm:bg-skin-muted p-4 transition-all rotate-0 bg-skin-muted sm:hover:bg-skin-button-accent text-skin-hue sm:hover:text-skin-inverted max-sm:hidden print:hidden hover:cursor-none" 
+          data-ccursor="lift"
+          aria-label="Blog"
+        >
+          <Icon name='ri:article-line' class='flex-1 w-1/2'/>
+          <p class="font-mono font-bold text-center">Blog</p>
+        </a>
   </div>
 </Section>
 

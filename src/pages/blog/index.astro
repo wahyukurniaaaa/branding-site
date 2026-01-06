@@ -1,0 +1,40 @@
+---
+import BlogLayout from "../../layouts/BlogLayout.astro";
+import Section from "@/components/Section.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const year = new Date().getFullYear();
+---
+
+<BlogLayout title="Blog | Wahyu Kurnia" description="Wahyu Kurnia's personal blog">
+  <Section title="Blog">
+    <div class="flex flex-col gap-8">
+      {
+        posts.map((post) => (
+          <a href={`/blog/${post.slug}`} class="group flex flex-col gap-2 rounded-xl border border-skin-hue/20 p-4 transition-all hover:bg-skin-hue/5">
+            <div class="flex justify-between items-start">
+              <h3 class="text-xl font-bold text-skin-base group-hover:text-skin-hue transition-colors">
+                {post.data.title}
+              </h3>
+              <time datetime={post.data.pubDate.toISOString()} class="text-sm text-skin-muted whitespace-nowrap">
+                {post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+              </time>
+            </div>
+            <p class="text-skin-muted line-clamp-2">{post.data.description}</p>
+            <div class="flex gap-2 mt-2">
+              {post.data.tags.map((tag) => (
+                <span class="px-2 py-1 text-xs rounded-md bg-skin-hue/10 text-skin-hue font-mono">
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </Section>
+</BlogLayout>

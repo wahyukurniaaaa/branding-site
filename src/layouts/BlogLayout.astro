@@ -1,0 +1,47 @@
+---
+import Layout from "./Layout.astro";
+import Hero from "@/components/sections/Hero.astro";
+import ThemeSwitch from "@/components/ThemeSwitch.astro";
+import KeyboardManager from "@/components/KeyboardManager.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<Layout title={title} description={description}>
+  <main class="relative grid h-full max-w-7xl gap-12 p-8 max-sm:py-16 md:min-h-screen md:grid-cols-6 md:p-16 xl:gap-24 text-skin-base">
+    <!-- Left Sidebar -->
+    <div class="slide-enter space-y-6 ease-in md:col-span-2 md:sticky top-0 self-start h-min">
+      <Hero className="col-span-2" />
+      
+      <!-- Navigation Back -->
+      <a href="/" class="group flex items-center gap-2 w-fit p-3 rounded-xl hover:bg-skin-button-accent/10 transition-colors">
+        <span class="text-xl group-hover:-translate-x-1 transition-transform">←</span>
+        <span class="font-bold">Back to Portfolio</span>
+      </a>
+
+      <ThemeSwitch />
+    </div>
+
+    <!-- Right Content (Blog) -->
+    <div class="slide-enter-content space-y-12 md:col-span-4 min-h-screen">
+      <slot />
+    </div>
+  </main>
+  <KeyboardManager />
+</Layout>
+
+<style is:global>
+  @keyframes slide-enter {
+    0% { transform: translateY(10px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .slide-enter, .slide-enter-content {
+    animation: slide-enter 0.5s both 1;
+  }
+</style>

@@ -1,0 +1,102 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import BlogLayout from "../../layouts/BlogLayout.astro";
+import Section from "@/components/Section.astro";
+
+export async function getStaticPaths() {
+    const posts = await getCollection("blog");
+    return posts.map((post) => ({
+        params: { slug: post.slug },
+        props: post,
+    }));
+}
+type Props = CollectionEntry<"blog">;
+
+const post = Astro.props;
+const { Content } = await post.render();
+---
+
+<BlogLayout title={post.data.title} description={post.data.description}>
+    <article
+        class="prose prose-invert max-w-none prose-headings:text-skin-base prose-p:text-skin-muted prose-a:text-skin-hue hover:prose-a:underline prose-strong:text-skin-base prose-code:text-skin-hue"
+    >
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-skin-base mb-2">
+                {post.data.title}
+            </h1>
+            <div class="flex gap-4 text-sm text-skin-muted items-center">
+                <time datetime={post.data.pubDate.toISOString()}>
+                    {
+                        post.data.pubDate.toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                        })
+                    }
+                </time>
+                <span>•</span>
+                <div class="flex gap-2">
+                    {
+                        post.data.tags.map((tag) => (
+                            <span class="text-skin-hue">#{tag}</span>
+                        ))
+                    }
+                </div>
+            </div>
+        </div>
+
+        {
+            post.data.heroImage && (
+                <img
+                    transition:name="hero-image"
+                    src={post.data.heroImage}
+                    alt=""
+                    class="w-full rounded-xl mb-8 aspect-video object-cover"
+                />
+            )
+        }
+
+        <div class="content">
+            <Content />
+        </div>
+    </article>
+</BlogLayout>
+
+<style is:global>
+    /* Custom prose styling to match theme */
+    .content h1,
+    .content h2,
+    .content h3,
+    .content h4 {
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+    }
+    .content p {
+        margin-bottom: 1.5rem;
+        line-height: 1.75;
+    }
+    .content ul {
+        list-style-type: disc;
+        padding-left: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    .content code {
+        background: rgba(125, 125, 125, 0.1);
+        padding: 0.2em 0.4em;
+        border-radius: 0.25rem;
+        font-size: 0.875em;
+    }
+    .content pre {
+        background: #1e1e1e;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        overflow-x: auto;
+        margin-bottom: 1.5rem;
+    }
+    .content pre code {
+        background: transparent;
+        padding: 0;
+        color: inherit;
+    }
+</style>
