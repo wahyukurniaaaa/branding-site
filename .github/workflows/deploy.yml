@@ -33,7 +33,7 @@ jobs:
         uses: easingthemes/ssh-deploy@main
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
-          PORT: ${{ secrets.PORT }}
+          PORT: 2025
           ARGS: "-rlgoDzvc -i --delete" # --delete memastikan file lama di VPS terhapus jika di local sudah tidak ada
           SOURCE: "dist/"
           REMOTE_HOST: ${{ secrets.HOST }}
