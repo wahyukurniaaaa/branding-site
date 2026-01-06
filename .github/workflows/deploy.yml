@@ -30,10 +30,9 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
           REMOTE_HOST: ${{ secrets.HOST }}
           REMOTE_USER: ${{ secrets.USER }}
-          # 1. Coba gunakan SSH_PORT (beberapa versi menggunakan nama ini)
           SSH_PORT: 2025 
-          # 2. Tetap pasang PORT sebagai backup
           PORT: 2025
+          REMOTE_PORT : 2025
           SOURCE: "dist/"
           TARGET: "/var/www/personal-branding"
           # 3. FORCE via ARGS (Metode paling ampuh jika env di atas diabaikan)
