@@ -1,0 +1,40 @@
+name: Deploy Personal Branding
+on:
+  push:
+    branches:
+      - master # Hanya jalan saat push ke branch main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Ambil kode dari repository
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 2. Setup Node.js v20 dengan fitur Caching otomatis
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm' # Mengingat node_modules agar build berikutnya lebih cepat
+
+      # 3. Install dependencies secara bersih (Clean Install)
+      - name: Install Dependencies
+        run: npm ci
+
+      # 4. Build Astro menjadi file static (folder /dist)
+      - name: Build Project
+        run: npm run build
+
+      # 5. Kirim folder /dist ke VPS menggunakan Rsync (via SSH)
+      - name: Deploy to VPS
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+          ARGS: "-rlgoDzvc -i --delete" # --delete memastikan file lama di VPS terhapus jika di local sudah tidak ada
+          SOURCE: "dist/"
+          REMOTE_HOST: ${{ secrets.HOST }}
+          REMOTE_USER: ${{ secrets.USER }}
+          TARGET: "/var/www/personal-branding" # Ganti dengan path folder di VPS Anda

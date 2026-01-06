@@ -1,50 +1,50 @@
 {
   "analyticsCode": "",
   "basics": {
-    "name": "Anmol Singh",
-    "label": "Software Developer",
-    "animated_main_label": "developer",
-    "animated_secondary_initial_label": "software",
-    "animated_secondary_final_label": "fullstack",
-    "image": "/pfp.jpg",
-    "email": "anmolsingh51200@gmail.com",
-    "url": "https://anmol.pro",
+    "name": "Wahyu Kurnia",
+    "label": "Senior Software Engineer",
+    "animated_main_label": "Engineer",
+    "animated_secondary_initial_label": "Sr. Software",
+    "animated_secondary_final_label": "Engineer",
+    "image": "https://media.licdn.com/dms/image/v2/C5603AQGuMQwVP4zfCg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1564488608991?e=1769040000&v=beta&t=xf4qyAD6bzQlj_TMnjLVX3eemcgYOeQqRatOKrly1Ms",
+    "email": "me@wahyukurnia.com",
+    "url": "https://wahyukurnia.com",
     "summary": "Full Stack developer with experience building and deploying production-ready web apps in freelance teams. Delivered two client websites and worked closely with teams to create scalable, maintainable solutions.",
     "theme": "platinum",
     "location": {
-      "address": "Panipat",
-      "city": "Haryana",
+      "address": "Pancoran Mas",
+      "city": "Depok",
       "countryCode": "IN",
-      "region": "India"
+      "region": "Indonesia"
     },
     "profiles": [
       {
         "network": "X / Twitter",
         "icon": "ri:twitter-fill",
         "color": "#1DA1F2",
-        "username": "@anmolthedev",
-        "url": "https://x.com/anmolthedev"
+        "username": "@wahyukurnia",
+        "url": "https://x.com/wahyukurniap"
       },
       {
         "network": "GitHub",
         "icon": "mdi:github",
         "color": "#929AAB",
-        "username": "Anmol-TheDev",
-        "url": "https://github.com/Anmol-TheDev"
+        "username": "wahyukurniaaaa",
+        "url": "https://github.com/wahyukurniaaaa"
       },
       {
         "network": "Email",
         "icon": "ri:mail-fill",
         "color": "#D44638",
-        "username": "anmolsingh",
-        "url": "mailto:anmolsingh51200@gmail.com"
+        "username": "wahyukurnia",
+        "url": "mailto:me@wahyukurnia.com"
       },
       {
         "network": "GitHub Stars",
         "icon": "ri:star-line",
         "color": "#FBBC05",
         "username": "Star on GitHub",
-        "url": "https://github.com/Anmol-TheDev/potfolio2.0"
+        "url": "https://github.com/wahyukurniaaaa"
       }
     ]
   },

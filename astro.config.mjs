@@ -4,7 +4,7 @@ import tailwind from "@astrojs/tailwind";
 import astroIcon from 'astro-icon';
 import mdx from '@astrojs/mdx';
 import playformCompress from "@playform/compress";
-import vercel from "@astrojs/vercel/serverless";
+// import vercel from "@astrojs/vercel/serverless"; // Disabled for static build
 
 // https://astro.build/config
 export default defineConfig({
@@ -22,11 +22,11 @@ export default defineConfig({
       CSS: false,
       Image: false,
       Action: {
-        Passed: async () => true,  
+        Passed: async () => true,
       },
     })
   ],
-  output: 'server',
-  adapter: vercel(),
-  
+  output: 'static',  // Static HTML files untuk VPS
+  // adapter: vercel(), // Tidak perlu adapter untuk static
+
 });
