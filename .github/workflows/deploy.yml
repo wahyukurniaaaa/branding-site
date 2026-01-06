@@ -36,4 +36,4 @@ jobs:
           SOURCE: "dist/"
           TARGET: "/var/www/personal-branding"
           # 3. FORCE via ARGS (Metode paling ampuh jika env di atas diabaikan)
-          ARGS: "-rlgoDzvc -i --delete -e 'ssh -p 2025 -o StrictHostKeyChecking=no'"
+          ARGS: "-rlgoDzvc -i --delete"
