@@ -30,9 +30,7 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
           REMOTE_HOST: ${{ secrets.HOST }}
           REMOTE_USER: ${{ secrets.USER }}
-          SSH_PORT: 2025 
-          PORT: 2025
-          REMOTE_PORT : 2025
+          REMOTE_PORT : ${{ secrets.PORT }}
           SOURCE: "dist/"
           TARGET: "/var/www/personal-branding"
           # 3. FORCE via ARGS (Metode paling ampuh jika env di atas diabaikan)
