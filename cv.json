@@ -36,7 +36,7 @@
   },
   "work": [
     {
-      "name": "Software Developer / Engineer",
+      "name": "IT Consultant Company",
       "position": "Senior Software Engineer",
       "location_type": "Hybrid/Remote",
       "location": "Indonesia",
@@ -75,31 +75,59 @@
       "name": "AI & Modern Productivity",
       "icon": "mdi:auto-fix",
       "level": "Expert",
-      "keywords": ["AI Integration", "Prompt Engineering", "GitHub Copilot", "LLM APIs", "AI Automation"]
+      "keywords": [
+        "AI Integration",
+        "Prompt Engineering",
+        "GitHub Copilot",
+        "LLM APIs",
+        "AI Automation"
+      ]
     },
     {
       "name": "Analytical & Design Skills",
       "icon": "mdi:brain",
       "level": "Expert",
-      "keywords": ["Application Analysis", "System Design", "Problem Solving", "Software Architecture"]
+      "keywords": [
+        "Application Analysis",
+        "System Design",
+        "Problem Solving",
+        "Software Architecture"
+      ]
     },
     {
       "name": "Core Technical Stack",
       "icon": "simple-icons:php",
       "level": "Expert",
-      "keywords": ["Laravel", "CodeIgniter 4", "Python", "Propel 2 ORM", "BI Dashboards"]
+      "keywords": [
+        "Laravel",
+        "CodeIgniter 4",
+        "Python",
+        "Propel 2 ORM",
+        "BI Dashboards"
+      ]
     },
     {
       "name": "DevOps & Infrastructure",
       "icon": "simple-icons:cloudflare",
       "level": "Advanced",
-      "keywords": ["CI/CD", "Cloudflare", "Docker", "Podman", "Nginx"]
+      "keywords": [
+        "CI/CD",
+        "Cloudflare",
+        "Docker",
+        "Podman",
+        "Nginx"
+      ]
     },
     {
       "name": "Professional Soft Skills",
       "icon": "mdi:account-group",
       "level": "Expert",
-      "keywords": ["Management Waktu", "Kolaborasi Tim", "Code Review", "Internal Speaker"]
+      "keywords": [
+        "Management Waktu",
+        "Kolaborasi Tim",
+        "Code Review",
+        "Internal Speaker"
+      ]
     }
   ],
   "languages": [
