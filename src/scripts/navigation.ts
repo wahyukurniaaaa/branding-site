@@ -30,57 +30,86 @@ if (cursor) {
   cursor.style.left = `${firstItem?.x - 18}px `;
 }
 
-document.addEventListener('keydown', (e: KeyboardEvent) => {
-  if (currentMode === EMode.INSERT && e.key !== 'Escape') {
-    return;
+function setupNavigationListeners() {
+  // Remove existing listener if any
+  const oldHandler = (window as any).__navigationKeydownHandler;
+  if (oldHandler) {
+    document.removeEventListener('keydown', oldHandler);
   }
-  switch (e.key) {
-    case ':':
-      e.preventDefault();
-      currentMode = EMode.COMMAND;
-      commandBuffer = ':';
-      window.updateStatusBar(currentMode, commandBuffer);
-      break;
-    case '/':
-      e.preventDefault();
-      currentMode = EMode.SEARCH;
-      commandBuffer = '/';
-      window.updateStatusBar(currentMode, commandBuffer);
-      break;
-    case 'Escape':
-      handleEscape();
-      window.clearSearch()
-      break;
-    case 'Enter':
-      if (currentMode === EMode.COMMAND || currentMode === EMode.SEARCH) {
-        handleCommand(commandBuffer);
+
+  // Create new handler
+  const keydownHandler = (e: KeyboardEvent) => {
+    // Ignore if any modifier keys are pressed (Ctrl, Alt, Meta) - let other handlers deal with shortcuts
+    if (e.ctrlKey || e.altKey || e.metaKey) {
+      return;
+    }
+
+    if (currentMode === EMode.INSERT && e.key !== 'Escape') {
+      return;
+    }
+    switch (e.key) {
+      case ':':
+        e.preventDefault();
+        currentMode = EMode.COMMAND;
+        commandBuffer = ':';
+        window.updateStatusBar(currentMode, commandBuffer);
+        break;
+      case '/':
+        e.preventDefault();
+        currentMode = EMode.SEARCH;
+        commandBuffer = '/';
+        window.updateStatusBar(currentMode, commandBuffer);
+        break;
+      case 'Escape':
         handleEscape();
-      }
-      if (currentMode === EMode.NORMAL) {
-        navigateTo();
-      }
-      break;
-    case 'Backspace':
-      if (currentMode === EMode.COMMAND || currentMode === EMode.SEARCH) {
-        e.preventDefault();
-        commandBuffer = commandBuffer.slice(0, -1);
-        if (commandBuffer.length === 0) {
+        window.clearSearch()
+        break;
+      case 'Enter':
+        if (currentMode === EMode.COMMAND || currentMode === EMode.SEARCH) {
+          handleCommand(commandBuffer);
           handleEscape();
-        } else {
-          window.updateStatusBar(undefined, commandBuffer);
         }
-      }
-      break;
-    default:
-      if (currentMode === EMode.COMMAND || currentMode === EMode.SEARCH) {
-        e.preventDefault();
-        commandBuffer += e.key;
-        window.updateStatusBar(undefined, commandBuffer);
-      } else {
-        handleNormalModeKey(e.key);
-      }
-  }
-});
+        if (currentMode === EMode.NORMAL) {
+          navigateTo();
+        }
+        break;
+      case 'Backspace':
+        if (currentMode === EMode.COMMAND || currentMode === EMode.SEARCH) {
+          e.preventDefault();
+          commandBuffer = commandBuffer.slice(0, -1);
+          if (commandBuffer.length === 0) {
+            handleEscape();
+          } else {
+            window.updateStatusBar(undefined, commandBuffer);
+          }
+        }
+        break;
+      default:
+        if (currentMode === EMode.COMMAND || currentMode === EMode.SEARCH) {
+          e.preventDefault();
+          commandBuffer += e.key;
+          window.updateStatusBar(undefined, commandBuffer);
+        } else {
+          handleNormalModeKey(e.key);
+        }
+    }
+  };
+
+  // Store handler for cleanup
+  (window as any).__navigationKeydownHandler = keydownHandler;
+
+  // Add listener
+  document.addEventListener('keydown', keydownHandler);
+}
+
+// Initialize on first load and after navigation
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', setupNavigationListeners);
+} else {
+  setupNavigationListeners();
+}
+
+document.addEventListener('astro:page-load', setupNavigationListeners);
 
 function handleEscape() {
   currentMode = EMode.NORMAL;
@@ -146,13 +175,13 @@ function handleNormalModeKey(key: string) {
       window.updateStatusBar(currentMode);
       break;
   }
-  
+
   updatePosition();
 }
 
 function updatePosition() {
   window.updateStatusBar(undefined, undefined, undefined, `${Math.floor(cursorPosition.y / 100) || 1}:${Math.floor(cursorPosition.x) || 1}`);
-  
+
   if (cursor) {
     cursor.style.top = `${cursorPosition.y}px`;
     cursor.style.left = `${cursorPosition.x}px`;
@@ -169,14 +198,14 @@ function moveCursor(direction: 'j' | 'k') {
       }
       break;
     case 'j':
-      if (currentLine < currentPageItems.length -1) {
+      if (currentLine < currentPageItems.length - 1) {
         currentLine++;
       }
       break;
     default:
       console.log('Invalid direction');
   }
-  
+
   const { y: screenVerticalPosition, x: screenHorizontalPosition } = currentPageItems[currentLine]?.getBoundingClientRect() ?? { y: 0, x: 0 };
   cursorPosition.y = screenVerticalPosition;
   cursorPosition.x = screenHorizontalPosition - 18;
@@ -207,9 +236,9 @@ function navigateUp() {
 }
 
 function navigateTo() {
-  const currentItem : Element | undefined = currentPageItems[currentLine];
+  const currentItem: Element | undefined = currentPageItems[currentLine];
   const itemUrl: string | null = currentItem?.getAttribute('data-href');
-  
+
   if (itemUrl) {
     window.location.href = itemUrl;
   }

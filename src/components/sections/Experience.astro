@@ -101,17 +101,43 @@ const millisecondsInYear = 1000 * 60 * 60 * 24 * 365
     })}
   </ul>
 </Section>
-<script>
-  const expandButton = document.querySelectorAll('.expand-button');
+<script is:inline>
+  // Function to setup expand buttons
+  function setupExpandButtons() {
+    const expandButtons = document.querySelectorAll('.expand-button');
 
-  expandButton.forEach(button => {
-    button.addEventListener('click', () => {
-      const container = button.closest<HTMLElement>('.expand-container')!;
-      container.dataset.expanded = container.dataset.expanded === 'true' ? 'false' : 'true';
-      const expandText = button.querySelector('.expand-text')!;
-      expandText.innerHTML = container.dataset.expanded === 'true' ? 'Show less' : 'Show more'
+    expandButtons.forEach(button => {
+      // Remove existing listener if any (prevent duplicates)
+      button.replaceWith(button.cloneNode(true));
     });
-  });
+
+    // Re-select after cloning
+    const newButtons = document.querySelectorAll('.expand-button');
+    
+    newButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const container = button.closest('.expand-container');
+        if (!container) return;
+        
+        const isExpanded = container.dataset.expanded === 'true';
+        container.dataset.expanded = isExpanded ? 'false' : 'true';
+        
+        const expandText = button.querySelector('.expand-text');
+        if (expandText) {
+          expandText.innerHTML = !isExpanded ? 'Show less' : 'Show more';
+        }
+      });
+    });
+  }
+
+  // Initialize on first load and after navigation
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupExpandButtons);
+  } else {
+    setupExpandButtons();
+  }
+  
+  document.addEventListener('astro:page-load', setupExpandButtons);
 </script>
 
 <style>

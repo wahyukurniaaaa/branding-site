@@ -18,10 +18,14 @@ interface Basics {
   image: string;
   email: string;
   phone?: string;
-  url: URL;
+  url: string;
   summary: string;
+  theme?: string;
   location: Location;
   profiles: Array<Profiles>;
+  animated_main_label?: string;
+  animated_secondary_initial_label?: string;
+  animated_secondary_final_label?: string;
 }
 
 interface Location {
@@ -33,26 +37,30 @@ interface Location {
 }
 
 interface Profiles {
-  icon: string,
+  icon: string;
   network: string;
   username: string;
-  url: URL;
+  url: string;
+  color?: string;
 }
 
 interface Work {
   name: string;
   position: string;
-  url: URL;
+  url?: string;
   startDate: DateStr;
   endDate: DateStr | null;
   summary: string;
-  highlights: Highlight;
+  location_type?: string;
+  location?: string;
+  responsibilities?: Array<string>;
+  skills?: Record<string, string>;
 }
 
-type DateStr = `${string}-${string}-${string}`;
+type DateStr = string;
 
 interface Skill {
-  icon: string,
+  icon: string;
   name: string;
   level: string;
   keywords: Array<string>;
@@ -62,20 +70,20 @@ interface Certificate {
   name: string;
   date: DateStr;
   issuer: string;
-  url: URL;
+  url: string;
 }
 
 interface Publication {
   name: string;
   publisher: string;
   releaseDate: DateStr;
-  url: URL;
+  url: string;
   summary: string;
 }
 
 interface Education {
   institution: string;
-  url: URL;
+  url?: string;
   area: string;
   studyType: string;
   startDate: DateStr;
@@ -93,9 +101,9 @@ interface Project {
   name: string;
   isActive: boolean;
   description: string;
-  highlights: Highlights;
-  url?: URL;
-  github?: URL;
+  highlights: Array<string>;
+  url?: string;
+  github?: string;
 }
 
 interface Interests {
@@ -108,4 +116,3 @@ interface Reference {
   reference: string;
 }
 
-type Highlights = Array<String>;
