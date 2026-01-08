@@ -67,7 +67,8 @@
       "area": "System Information",
       "studyType": "Bachelor (S1)",
       "startDate": "",
-      "endDate": "10-11-2019"
+      "endDate": "10-11-2019",
+      "url": ""
     }
   ],
   "skills": [
@@ -139,5 +140,7 @@
       "language": "English",
       "fluency": "Professional Working Proficiency"
     }
-  ]
+  ],
+  "certificates": [],
+  "projects": []
 }

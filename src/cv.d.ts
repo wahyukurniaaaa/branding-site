@@ -96,6 +96,7 @@ interface Project {
   highlights: Highlights;
   url?: URL;
   github?: URL;
+  stack?: Record<string, string>;
 }
 
 interface Interests {
