@@ -1,6 +1,7 @@
 import { addCursor, setStyles } from "./chunks";
 import contextMode from "./modes/contextMode";
 import propNames from "./propNames";
+import { type CProps } from "./types";
 
 const contextCursor = (props: CProps = {}) => {
   // Default props
@@ -15,13 +16,32 @@ const contextCursor = (props: CProps = {}) => {
   setStyles();
   const cCursor = addCursor(props) as HTMLElement;
 
-  // Load mode when page is loaded
-  window.onload = () => {
+  // Load mode when page is loaded or ready
+  const initMode = () => {
     let interactElements = document.querySelectorAll(
       `[${propNames.dataAttr}]`
     ) as NodeListOf<Element>;
-    contextMode(cCursor, props, interactElements);
+    return contextMode(cCursor, props, interactElements);
   };
+
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    return initMode();
+  } else {
+    // If we are waiting for load, we can't return the destroy function immediately.
+    // However, in SPA context, we usually hit the first block.
+    // We'll return a proxy destroy function.
+    let instance: { destroy: () => void } | undefined;
+    window.addEventListener('load', () => {
+      instance = initMode();
+    });
+    return {
+      destroy: () => {
+        if (instance) instance.destroy();
+        // Also remove load listener just in case
+        window.removeEventListener('load', initMode);
+      }
+    }
+  }
 };
 
 export default contextCursor;

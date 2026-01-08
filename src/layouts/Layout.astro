@@ -198,8 +198,17 @@ import { ClientRouter } from "astro:transitions";
   body {
     * {
       @apply rounded-lg;
-      cursor: none !important;
       -webkit-user-drag: none;
+    }
+  }
+
+  @media (min-width: 640px) {
+    body {
+      cursor: none;
+    }
+
+    body * {
+      cursor: none !important;
     }
   }
 

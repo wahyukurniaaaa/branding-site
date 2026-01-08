@@ -18,6 +18,8 @@
     "@astrojs/markdown-remark": "^5.1.1",
     "@astrojs/mdx": "^4.0.0",
     "@astrojs/react": "^4.3.0",
+    "@astrojs/rss": "^4.0.14",
+    "@astrojs/sitemap": "^3.6.0",
     "@astrojs/tailwind": "^5.1.1",
     "@astrojs/vercel": "^8.2.7",
     "@fancyapps/ui": "^5.0.36",
