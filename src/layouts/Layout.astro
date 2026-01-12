@@ -18,24 +18,22 @@ const {
   image = CV.basics.image,
   canonicalURL = CV.basics.url,
   keywords = [
-    "Anmol Singh",
-    "AJ Dev",
-    "Anmol Pro",
+    "Wahyu Kurnia",
+    "Wahyu Kurnia Prambudi",
+    "Senior Software Engineer",
     "Full Stack Developer",
-    "Frontend Developer",
-    "Backend Developer",
-    "Web Developer",
-    "Software Engineer",
-    "React Developer",
-    "Next.js Developer",
-    "TypeScript Developer",
-    "Go Developer",
-    "Panipat",
-    "India",
+    "PHP Developer",
+    "CodeIgniter Developer",
+    "Laravel Developer",
+    "Python Developer",
+    "AI Integration",
+    "System Design",
+    "Depok",
+    "Indonesia",
     "Portfolio",
-    "E-commerce Projects",
-    "Music App",
-    "Social Media App",
+    "Business Intelligence",
+    "CI/CD",
+    "Software Architecture",
   ],
 } = Astro.props;
 
@@ -43,7 +41,7 @@ const { url, theme, name, location } = CV.basics;
 const { city, region } = location;
 
 // Create a more detailed description
-const detailedDescription = `Anmol Singh (AJ Dev) - Full Stack Developer. Explore my portfolio, projects, and contact info. Frontend, backend, and more.`;
+const detailedDescription = `Wahyu Kurnia Prambudi - Senior Software Engineer with 9+ years of experience. Expert in PHP, Python, AI Integration, and System Design. Based in Indonesia.`;
 
 // Create structured data for better SEO
 const structuredData = {
@@ -63,7 +61,7 @@ const structuredData = {
     "@type": "PostalAddress",
     addressLocality: city,
     addressRegion: region,
-    addressCountry: "IN",
+    addressCountry: "ID",
   },
   knowsAbout: CV.skills.map((skill) => skill.name),
   worksFor: CV.work?.map((work) => ({
@@ -118,7 +116,7 @@ import { ClientRouter } from "astro:transitions";
     <meta name="description" content={detailedDescription} />
     <meta name="author" content={name} />
     <meta name="keywords" content={keywords.join(", ")} />
-    <meta name="geo.region" content="IN-HR" />
+    <meta name="geo.region" content="ID-JB" />
     <meta name="geo.placename" content={city} />
 
     <!-- Canonical URL -->
@@ -139,7 +137,7 @@ import { ClientRouter } from "astro:transitions";
     <meta property="og:description" content={detailedDescription} />
     <meta property="og:image" content={image} />
     <meta property="og:site_name" content={`${name}'s Portfolio`} />
-    <meta property="og:locale" content="en_IN" />
+    <meta property="og:locale" content="id_ID" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
