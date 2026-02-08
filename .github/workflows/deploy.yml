@@ -1,37 +1,33 @@
-name: Deploy Personal Branding
+name: Build and Push Docker Image
 on:
   push:
-    branches:
-      - master # Pastikan ini sesuai dengan nama branch utama Anda (master atau main)
+    branches: [ master ]
 
 jobs:
-  build-and-deploy:
+  build-and-push:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
 
     steps:
-      - name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
         with:
-          node-version: 20
-          cache: 'npm'
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install Dependencies
-        run: npm ci
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/${{ github.repository }}:latest
 
-      - name: Build Project
-        run: npm run build
-
-      - name: Deploy to VPS
-        uses: easingthemes/ssh-deploy@main
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
-          REMOTE_HOST: ${{ secrets.HOST }}
-          REMOTE_USER: ${{ secrets.USER }}
-          REMOTE_PORT : ${{ secrets.PORT }}
-          SOURCE: "dist/"
-          TARGET: "/var/www/personal-branding"
-          # 3. FORCE via ARGS (Metode paling ampuh jika env di atas diabaikan)
-          ARGS: "-rlgoDzvc -i --delete"
+      - name: Trigger Easypanel Deploy
+        run: |
+          curl -X POST "${{ secrets.EASYPANEL_WEBHOOK_URL }}"
